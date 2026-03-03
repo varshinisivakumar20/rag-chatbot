@@ -1,0 +1,15 @@
+LangChain is a framework for developing applications powered by large language models (LLMs).
+It enables developers to build context-aware, reasoning applications by chaining together
+components like prompts, models, memory, and tools.
+
+RAG (Retrieval-Augmented Generation) is a technique that combines information retrieval
+with text generation. Instead of relying solely on a model's training data, RAG fetches
+relevant documents from a knowledge base and uses them as context for generating answers.
+
+This chatbot uses LangChain's ConversationalRetrievalChain to implement RAG. Documents
+are loaded from the 'documents/' folder, split into chunks, embedded using OpenAI
+embeddings, and stored in a ChromaDB vector store. When a user asks a question, the
+most relevant chunks are retrieved and passed to the LLM as context.
+
+To add your own knowledge base, simply place .txt files in the 'documents/' folder
+and restart the chatbot.
