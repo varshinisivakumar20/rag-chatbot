@@ -2,5 +2,5 @@ langchain
 langchain-community
 langchain-openai
 chromadb
-openai
+sentence-transformers
 python-dotenv
