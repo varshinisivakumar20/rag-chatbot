@@ -1,10 +1,9 @@
-import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 
@@ -25,19 +24,14 @@ def build_chain():
     vectorstore = Chroma.from_documents(chunks, embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    llm = ChatOpenAI(
-        model="grok-2-latest",
-        api_key=os.getenv("XAI_API_KEY"),
-        base_url="https://api.x.ai/v1",
-        temperature=0,
-    )
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     chain = ConversationalRetrievalChain.from_llm(llm, retriever, memory=memory)
     return chain
 
 
 def main():
     print("=" * 40)
-    print("    RAG Chatbot with Grok + LangChain")
+    print("    RAG Chatbot with Groq + LangChain")
     print("=" * 40)
     print("Type 'quit' to exit.\n")
 
